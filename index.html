@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- iOS Web App Metadata -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="陸上之訓練">
+    <link rel="apple-touch-icon" sizes="180x180" href="Dryland-002(180x180).png">
+    <link rel="apple-touch-icon" href="Dryland-002(180x180).png">
+    <link rel="icon" type="image/png" sizes="512x512" href="Dryland-002(180x180).png">
+    <link rel="icon" type="image/png" href="Dryland-002(180x180).png">
+    <meta name="theme-color" content="#EFE6D5">
+    
+    <title>泳手陸上之訓練 | Swimmer Dryland Training</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        retroBg: '#EFE6D5',      // Raw kraft / parchment background
+                        retroCard: '#F9F4EA',    // Light warm paper card
+                        retroDark: '#211C18',    // Deep dark ink / black
+                        retroRust: '#B84A22',    // Terracotta / rust red
+                        retroInk: '#1E3A5F',     // Deep vintage blue
+                        retroMustard: '#D9822B', // Vintage ochre / mustard
+                        retroGreen: '#2D4A3E',   // Vintage pine green
+                        retroSand: '#E5D8C3',    // Border & subtle highlight
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Cambria', '"Times New Roman"', 'serif'],
+                        mono: ['Courier New', 'Courier', 'monospace'],
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', 'Arial', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'retro-sm': '2px 2px 0px 0px #211C18',
+                        'retro': '3px 3px 0px 0px #211C18',
+                        'retro-lg': '5px 5px 0px 0px #211C18',
+                        'retro-active': '1px 1px 0px 0px #211C18',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Retro PWA & Craft Adjustments */
+        body {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+            background-color: #EFE6D5;
+            color: #211C18;
+            background-image: radial-gradient(rgba(33, 28, 24, 0.15) 1px, transparent 1px);
+            background-size: 16px 16px;
+            background-position: -8px -8px;
+            overflow-x: hidden;
+        }
+
+        /* 確保在大螢幕或橫版時，維持直版比例居中並完整保留復古點陣背景 */
+        @media screen and (min-width: 431px) {
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            body > header, body > main, body > nav {
+                width: 100%;
+                max-width: 430px !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        .pt-safe {
+            padding-top: env(safe-area-inset-top, 12px);
+        }
+        .retro-border {
+            border: 2px solid #211C18;
+        }
+        .active-tab {
+            background-color: #211C18 !important;
+            color: #F9F4EA !important;
+        }
+        .glass-header {
+            background: rgba(239, 230, 213, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .stamp-badge {
+            display: inline-block;
+            border: 1.5px dashed #211C18;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body class="h-full font-sans antialiased selection:bg-retroMustard selection:text-white flex flex-col overflow-hidden">
+
+    <!-- Top Header -->
+    <header class="glass-header text-retroDark sticky top-0 z-40 border-b-2 border-retroDark pt-safe shrink-0">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2.5">
+                <!-- 頂部列 Icon 容器：40x40px (w-10 h-10) 搭配 object-contain 確保圖像完整縮放不變形 -->
+                <div class="w-10 h-10 rounded-none bg-retroRust border-2 border-retroDark flex items-center justify-center text-retroCard shadow-retro-sm overflow-hidden p-0.5">
+                    <img src="Dryland-002(40x40).png" alt="泳手陸上訓練圖示" class="w-full h-full object-contain rounded-none">
+                </div>
+                <div>
+                    <h1 class="font-serif font-black text-lg text-retroDark tracking-wide leading-tight">泳手陸上之訓練</h1>
+                    <p class="text-[10px] text-retroRust font-mono font-bold tracking-widest uppercase">SWIMMER DRYLAND TRAINING</p>
+                </div>
+            </div>
+            
+            <!-- Header Action/Badge -->
+            <button onclick="switchTab('today')" class="bg-retroMustard hover:bg-amber-600 active:translate-x-0.5 active:translate-y-0.5 active:shadow-retro-active transition text-xs font-mono font-bold text-retroCard px-3 py-1.5 border-2 border-retroDark shadow-retro-sm flex items-center gap-1.5">
+                <i class="fa-solid fa-fire text-retroCard"></i>
+                <span id="header-workout-count">今日 0 項目</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="flex-1 min-h-0 max-w-md mx-auto w-full px-4 pt-3 pb-16 overflow-hidden flex flex-col">
+        
+        <!-- ================= PAGE 1: STROKE DEMAND ================= -->
+        <section id="tab-strokes" class="flex-1 overflow-y-auto space-y-4 pb-6">
+            <div class="bg-retroCard border-2 border-retroDark p-4 shadow-retro space-y-2 relative overflow-hidden">
+                <div class="absolute -right-3 -top-3 w-16 h-16 bg-retroSand/40 rounded-full border border-retroDark/20 pointer-events-none"></div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <span class="stamp-badge bg-retroRust/10 text-retroRust mb-1 font-mono">BIOMECHANICS</span>
+                        <h2 class="text-xl font-serif font-bold text-retroDark">四大泳式肌肉需求</h2>
+                    </div>
+                    <i class="fa-solid fa-person-swimming text-3xl text-retroRust opacity-90"></i>
+                </div>
+                <p class="text-xs text-retroDark/80 leading-relaxed font-medium">
+                    解構水下抓水與動力鏈傳導，對照陸上專項訓練，建立無死角游進肌肉記憶與核心穩定度。
+                </p>
+            </div>
+
+            <!-- Stroke Tabs Selector -->
+            <div class="grid grid-cols-4 gap-1.5 p-1.5 bg-retroSand border-2 border-retroDark rounded-none text-center text-xs font-mono font-bold">
+                <button onclick="selectStroke('freestyle')" id="btn-stroke-freestyle" class="stroke-tab-btn py-2 border-2 border-white transition bg-retroDark text-retroCard shadow-retro-sm">自由式</button>
+                <button onclick="selectStroke('butterfly')" id="btn-stroke-butterfly" class="stroke-tab-btn py-2 border-2 border-transparent transition text-retroDark">蝶式</button>
+                <button onclick="selectStroke('backstroke')" id="btn-stroke-backstroke" class="stroke-tab-btn py-2 border-2 border-transparent transition text-retroDark">仰式</button>
+                <button onclick="selectStroke('breaststroke')" id="btn-stroke-breaststroke" class="stroke-tab-btn py-2 border-2 border-transparent transition text-retroDark">蛙式</button>
+            </div>
+
+            <!-- Stroke Dynamic Detail Card Container -->
+            <div id="stroke-detail-card" class="bg-retroCard border-2 border-retroDark p-5 shadow-retro space-y-4 transition-all">
+                <!-- Javascript will inject stroke details dynamically -->
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: EXERCISE LIBRARY ================= -->
+        <section id="tab-library" class="flex-1 min-h-0 flex flex-col space-y-3 overflow-hidden hidden">
+            
+            <!-- Fixed Filter Header Area -->
+            <div class="shrink-0 space-y-2.5 pb-2 border-b-2 border-retroDark">
+                
+                <!-- Stroke Filter Pills -->
+                <div class="flex gap-2 overflow-x-auto no-scrollbar py-0.5 text-xs font-mono font-bold">
+                    <button onclick="setLibraryFilter('stroke', 'all')" class="filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroDark text-retroCard whitespace-nowrap shadow-retro-sm" data-value="all">全部泳式</button>
+                    <button onclick="setLibraryFilter('stroke', 'freestyle')" class="filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroCard text-retroDark whitespace-nowrap" data-value="freestyle">自由式</button>
+                    <button onclick="setLibraryFilter('stroke', 'butterfly')" class="filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroCard text-retroDark whitespace-nowrap" data-value="butterfly">蝶式</button>
+                    <button onclick="setLibraryFilter('stroke', 'backstroke')" class="filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroCard text-retroDark whitespace-nowrap" data-value="backstroke">仰式</button>
+                    <button onclick="setLibraryFilter('stroke', 'breaststroke')" class="filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroCard text-retroDark whitespace-nowrap" data-value="breaststroke">蛙式</button>
+                </div>
+
+                <!-- Muscle Group Filter Pills -->
+                <div class="flex gap-2 overflow-x-auto no-scrollbar py-0.5 text-xs font-mono font-bold">
+                    <button onclick="setLibraryFilter('muscle', 'all')" class="filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroRust text-retroCard whitespace-nowrap shadow-retro-sm" data-value="all">全部肌群</button>
+                    <button onclick="setLibraryFilter('muscle', 'lat')" class="filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroSand text-retroDark whitespace-nowrap" data-value="lat">背闊肌/拉力</button>
+                    <button onclick="setLibraryFilter('muscle', 'core')" class="filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroSand text-retroDark whitespace-nowrap" data-value="core">核心與旋轉</button>
+                    <button onclick="setLibraryFilter('muscle', 'shoulder')" class="filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroSand text-retroDark whitespace-nowrap" data-value="shoulder">肩袖/肩胛</button>
+                    <button onclick="setLibraryFilter('muscle', 'lower')" class="filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroSand text-retroDark whitespace-nowrap" data-value="lower">下肢爆發</button>
+                </div>
+            </div>
+
+            <!-- Scrollable Exercise Cards List ONLY -->
+            <div id="exercise-cards-container" class="flex-1 min-h-0 overflow-y-auto space-y-3 pt-1 pb-6 pr-0.5 no-scrollbar">
+                <!-- Injected dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: TODAY'S WORKOUT & CUSTOM ROUTINE ================= -->
+        <section id="tab-today" class="flex-1 min-h-0 flex flex-col space-y-3 overflow-hidden hidden">
+            
+            <!-- Fixed Dashboard and Action Bar Area -->
+            <div class="shrink-0 space-y-3 pb-2 border-b-2 border-retroDark">
+                <!-- Progress & Timer Dashboard (Light Paper Aesthetic) -->
+                <div class="bg-retroCard text-retroDark border-2 border-retroDark p-4 shadow-retro space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-retroRust font-mono tracking-widest uppercase font-bold">DAILY TRACKER</span>
+                            <h2 class="text-xl font-serif font-bold text-retroDark">今日課表進度</h2>
+                        </div>
+                        <!-- Workout Timer Controls -->
+                        <div class="text-right">
+                            <div id="workout-timer-display" class="font-mono text-2xl font-bold tracking-wider text-retroRust">00:00</div>
+                            <div class="flex gap-1.5 mt-1 justify-end">
+                                <button onclick="toggleTimer()" id="timer-toggle-btn" class="w-7 h-7 bg-retroBg text-retroDark border-2 border-retroDark flex items-center justify-center text-xs font-bold hover:bg-retroMustard hover:text-white transition shadow-retro-sm">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                                <button onclick="resetTimer()" class="w-7 h-7 bg-retroBg text-retroDark border-2 border-retroDark flex items-center justify-center text-xs font-bold hover:bg-retroMustard hover:text-white transition shadow-retro-sm">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1 text-retroDark font-bold">
+                            <span>COMPLETED</span>
+                            <span id="progress-text">0 / 0 (0%)</span>
+                        </div>
+                        <div class="w-full bg-retroSand border-2 border-retroDark h-3.5 p-0.5">
+                            <div id="progress-bar" class="bg-retroRust h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Preset Action Bar & Record Button -->
+                <div class="flex items-center justify-between gap-2">
+                    <button onclick="loadDailyPreset()" class="flex-1 bg-retroCard border-2 border-retroDark text-retroDark hover:bg-retroSand py-2 px-2.5 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
+                        <i class="fa-solid fa-wand-magic-sparkles text-retroMustard"></i>
+                        載入每日精選
+                    </button>
+                    <button onclick="saveWorkoutToHistory()" class="bg-retroGreen text-retroCard border-2 border-retroDark hover:bg-emerald-800 py-2 px-2.5 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
+                        <i class="fa-solid fa-box-archive"></i>
+                        歸檔訓練
+                    </button>
+                    <button onclick="clearTodayWorkout()" class="bg-retroCard border-2 border-retroDark text-retroRust hover:bg-rose-100 py-2 px-2.5 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
+                        <i class="fa-solid fa-trash-can"></i>
+                        清空
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fixed Header Row -->
+            <div class="shrink-0 flex items-center justify-between text-xs font-mono font-bold text-retroDark/80 uppercase tracking-wider px-1 border-b border-retroDark/30 pb-1">
+                <span>專項訓練課表項目</span>
+                <span>勾選完成</span>
+            </div>
+
+            <!-- Scrollable Checklist Items ONLY -->
+            <div id="today-routine-list" class="flex-1 min-h-0 overflow-y-auto space-y-2.5 pt-1 pb-6 pr-0.5 no-scrollbar">
+                <!-- Dynamic rendering -->
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: COMPLETED WORKOUT HISTORY ================= -->
+        <section id="tab-history" class="flex-1 overflow-y-auto space-y-4 pb-6 hidden">
+            
+            <div class="bg-retroCard border-2 border-retroDark p-4 shadow-retro space-y-2 relative overflow-hidden">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <span class="stamp-badge bg-retroGreen/10 text-retroGreen mb-1 font-mono">TRAINING LOG</span>
+                        <h2 class="text-xl font-serif font-bold text-retroDark">完成紀錄歷程</h2>
+                    </div>
+                    <button onclick="clearHistory()" class="text-xs font-mono font-bold bg-retroCard border-2 border-retroDark text-retroRust px-2.5 py-1.5 shadow-retro-sm hover:bg-rose-100 transition">
+                        <i class="fa-solid fa-trash-can"></i> 清空紀錄
+                    </button>
+                </div>
+                <p class="text-xs text-retroDark/80 leading-relaxed font-medium">
+                    自動記錄每次完成課表的時間與項目，追蹤長期陸上專項累積訓練量。
+                </p>
+            </div>
+
+            <!-- History Entries List -->
+            <div id="history-list-container" class="space-y-3">
+                <!-- Injected dynamically via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- EXERCISE DETAIL MODAL -->
+    <div id="exercise-modal" class="fixed inset-0 bg-retroDark/80 backdrop-blur-xs z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-retroCard w-full max-w-md max-h-[85vh] border-t-4 sm:border-2 border-retroDark overflow-y-auto p-5 space-y-4 shadow-retro-lg">
+            
+            <div class="flex justify-between items-start border-b-2 border-retroDark pb-3">
+                <div>
+                    <span id="modal-stroke-tag" class="stamp-badge bg-retroMustard/20 text-retroDark font-mono">自由式專項</span>
+                    <h3 id="modal-title" class="text-xl font-serif font-bold text-retroDark mt-1">動作名稱</h3>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 border-2 border-retroDark bg-retroSand flex items-center justify-center text-retroDark hover:bg-retroRust hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Target Muscles -->
+            <div class="bg-retroBg p-3 border-2 border-retroDark space-y-1">
+                <div class="text-xs font-bold font-mono text-retroRust flex items-center gap-1.5">
+                    <i class="fa-solid fa-bullseye"></i> 針對肌群 TARGET MUSCLES
+                </div>
+                <p id="modal-muscles" class="text-xs text-retroDark font-semibold"></p>
+            </div>
+
+            <!-- Step by Step Technique -->
+            <div class="space-y-1.5">
+                <div class="text-xs font-bold font-mono text-retroDark flex items-center gap-1.5">
+                    <i class="fa-solid fa-list-check text-retroRust"></i> 動作要點與軌跡
+                </div>
+                <ul id="modal-steps" class="text-xs text-retroDark/90 space-y-1.5 list-disc pl-4 leading-relaxed"></ul>
+            </div>
+
+            <!-- Equipment & Water Transfer -->
+            <div class="bg-retroInk/10 p-3 border-2 border-retroInk space-y-1">
+                <div class="text-xs font-bold font-mono text-retroInk flex items-center gap-1.5">
+                    <i class="fa-solid fa-gear"></i> 器材配合與水下專項發力
+                </div>
+                <p id="modal-equipment" class="text-xs text-retroDark leading-relaxed"></p>
+            </div>
+
+            <!-- Precautions / Warnings -->
+            <div class="bg-retroRust/10 p-3 border-2 border-retroRust space-y-1">
+                <div class="text-xs font-bold font-mono text-retroRust flex items-center gap-1.5">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 注意事項與防傷提醒
+                </div>
+                <p id="modal-caution" class="text-xs text-retroRust leading-relaxed font-medium"></p>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="pt-2 flex gap-2">
+                <button id="modal-add-btn" onclick="toggleCurrentModalRoutine()" class="w-full bg-retroRust hover:bg-red-800 text-retroCard font-mono font-bold text-sm py-3 border-2 border-retroDark shadow-retro active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus"></i> 加入今日課表
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bottom Tab Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 glass-header border-t-2 border-retroDark z-40 pb-safe">
+        <div class="max-w-md mx-auto grid grid-cols-4 py-1 px-1 text-center font-mono font-bold">
+            
+            <button onclick="switchTab('strokes')" id="nav-strokes" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition active-tab border border-transparent">
+                <i class="fa-solid fa-person-swimming text-lg"></i>
+                <span class="text-[10px] tracking-tight">泳式需求</span>
+            </button>
+
+            <button onclick="switchTab('library')" id="nav-library" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition border border-transparent">
+                <i class="fa-solid fa-book-bookmark text-lg"></i>
+                <span class="text-[10px] tracking-tight">動作庫</span>
+            </button>
+
+            <button onclick="switchTab('today')" id="nav-today" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition relative border border-transparent">
+                <i class="fa-solid fa-clipboard-check text-lg"></i>
+                <span class="text-[10px] tracking-tight">今日課表</span>
+                <span id="tab-badge" class="absolute top-1 right-2 bg-retroRust text-retroCard text-[9px] font-mono font-bold w-4 h-4 border border-retroDark flex items-center justify-center hidden">0</span>
+            </button>
+
+            <button onclick="switchTab('history')" id="nav-history" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition border border-transparent">
+                <i class="fa-solid fa-clock-rotate-left text-lg"></i>
+                <span class="text-[10px] tracking-tight">完成紀錄</span>
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 bg-retroDark text-retroCard font-mono text-xs font-bold px-4 py-2.5 border-2 border-retroDark shadow-retro z-50 opacity-0 transition-opacity pointer-events-none flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-retroMustard"></i>
+        <span id="toast-message">提示訊息</span>
+    </div>
+
+    <script>
+        
+        // --- DATA: STROKE MUSCLE DEMAND ---
+        const strokeData = {
+            freestyle: {
+                title: "自由式 Freestyle (捷泳)",
+                primaryMuscles: "背闊肌 (Latissimus Dorsi)、胸大肌、腹斜肌、三角肌前束、臀大肌、股四頭肌",
+                chain: "手掌高肘抱水 -> 背闊肌收縮下拉 -> 軀幹對角線旋轉轉動 -> 核心傳導能量至下肢鞭打打水",
+                flaws: "1. 抱水時肘關節下塌（Drop Elbow），失去抓水阻力。<br>2. 髖關節未隨肩膀做對角旋轉，導致水阻大增大。<br>3. 打水時過度屈膝代償，未能由臀部髖關節發力。",
+                drylandFocus: "高肘拉力帶推水、軀幹抗旋轉死蟲式、單腿硬舉連貫發力。"
+            },
+            butterfly: {
+                title: "蝶式 Butterfly",
+                primaryMuscles: "背闊肌、胸大肌、腹直肌/深層核心、腰方肌、臀大肌、膕繩肌",
+                chain: "雙臂抱水推水 -> 胸椎向下壓水 -> 核心帶動髖關節快速屈伸 -> 雙腿波浪鞭打",
+                flaws: "1. 呼吸時頭抬過高，破壞軀幹流線型。<br>2. 海豚腿打水僅用小腿甩動，缺乏大腿後側與臀部連貫連鎖發力。<br>3. 抱水時肩膀過度緊張造成肩夾擊。",
+                drylandFocus: "藥球過頂下砸爆發、TRX懸吊核心Tuck、胸椎延伸 stretch 與懸吊Y-Fly。"
+            },
+            backstroke: {
+                title: "仰式 Backstroke",
+                primaryMuscles: "背闊肌、背部菱形肌、肩胛下肌、腹斜肌、股四頭肌、髂腰肌",
+                chain: "側身抱水向後推壓 -> 身體繞縱軸交替轉體 -> 腹斜肌穩定 -> 足背向上鞭打踢水",
+                flaws: "1. 踢水時膝蓋頂出水面（坐姿打水）。<br>2. 移臂時手腕與肩膀過度緊繃，造成肩關節旋轉限制。<br>3. 髖關節下沉，增加臀部水阻。",
+                drylandFocus: "仰臥瑞士球腿勾捲、懸吊反向划船、側板支撐帶旋轉。"
+            },
+            breaststroke: {
+                title: "蛙式 Breaststroke",
+                primaryMuscles: "大圓肌、胸大肌、內收肌群 (Adductors)、臀中肌、股四頭肌、腹直肌",
+                chain: "外劃抱水內收 -> 軀幹抬起吸氣 -> 腳跟向臀部收腳 -> 內收肌群爆發夾水蹬腿",
+                flaws: "1. 蹬腿時膝蓋外張過寬（寬膝蹬腿），大幅增加水阻。<br>2. 抱水過度超越肩膀後方，破壞頻率。<br>3. 收腳過快拉低體位。",
+                drylandFocus: "迷你彈力帶相撲深蹲、壺鈴髖爆發 (Hip Hinge)、彈力帶胸前雙臂夾擠。"
+            }
+        };
+
+        // --- DATA: DRYLAND EXERCISES LIBRARY ---
+        const exerciseLibrary = [
+            {
+                id: 'band-evf',
+                name: "彈力帶高抱水抓水模擬 (Band EVF Catch)",
+                stroke: 'freestyle',
+                strokeTag: '自由式 / 蝶式',
+                muscleGroup: 'lat',
+                muscles: "背闊肌、大圓肌、前鋸肌、肩袖穩定肌群",
+                steps: [
+                    "將彈力帶固定於高位，雙手握住拉環，身體前傾呈水下流線微俯體位。",
+                    "手臂前伸，保持肘關節高於手腕位置（EVF 高肘抱水）。",
+                    "由背闊肌發力，帶動前臂垂直向後下施壓，模仿水中抓水至推水前半程。",
+                    "控制速度頂峰收縮1秒，再緩慢還原至前伸位置。"
+                ],
+                equipment: "彈力帶 / 懸吊拉力繩。複製水中高肘抓水（Early Vertical Forearm）感覺，建立前臂抓水平面感。",
+                caution: "嚴禁動作中肘關節先下塌；肩關節保持下沉，避免聳肩造成肩峰下夾擊。"
+            },
+            {
+                id: 'medball-slam',
+                name: "藥球過頂爆發甩投 (Overhead Medicine Ball Slam)",
+                stroke: 'butterfly',
+                strokeTag: '蝶式 / 蛙式爆發',
+                muscleGroup: 'core',
+                muscles: "腹直肌、腹斜肌、背闊肌、胸大肌、臀大肌",
+                steps: [
+                    "雙腳與肩同寬站立，雙手高舉藥球至頭頂上方，充分伸展身體。",
+                    "核心肌群強烈收縮，帶動上半身迅速屈曲向下，將藥球猛力甩下砸向地面。",
+                    "順應髖關節屈曲，下蹲緩衝並迅速拾球重複。"
+                ],
+                equipment: "5-8kg 實心藥球。模擬蝶式與蛙式出水後，核心強烈壓胸拉腰的爆發貫穿力。",
+                caution: "下砸時脊椎保持中立，避免腰椎過度過伸（Hyper-extension）；注意足部安全。"
+            },
+            {
+                id: 'trx-y-fly',
+                name: "TRX 懸吊反向 Y-Fly (TRX Rear Delt & Y-Raise)",
+                stroke: 'backstroke',
+                strokeTag: '仰式 / 自由式移臂',
+                muscleGroup: 'shoulder',
+                muscles: "三角肌後束、菱形肌、下斜方肌、棘下肌",
+                steps: [
+                    "手握 TRX 握把，腳向前邁呈傾斜站立，雙臂向前直伸。",
+                    "保持身體直板，肩胛骨後收帶動雙臂向外上方展開呈「Y」字形。",
+                    "頂峰停留1秒後，慢速控速還原。"
+                ],
+                equipment: "TRX 懸吊訓練繩。強化仰式與自由式空中移臂（Recovery）時肩胛骨穩定性。",
+                caution: "嚴禁借用腰力拱腰代償；保持臀肌與核心全程鎖定。"
+            },
+            {
+                id: 'kb-high-pull',
+                name: "壺鈴髖爆發高拉 (Kettlebell High Pull)",
+                stroke: 'breaststroke',
+                strokeTag: '蛙式 / 蹬壁爆發',
+                muscleGroup: 'lower',
+                muscles: "臀大肌、膕繩肌、三角肌、斜方肌、核心",
+                steps: [
+                    "雙腳寬於肩站立，雙手握壺鈴，做出髖關節後折（Hip Hinge）。",
+                    "臀部爆發力向前伸展推髖，順勢利用動量將壺鈴拉至胸前高肘位置。",
+                    "控速將壺鈴放回下擺。"
+                ],
+                equipment: "8-16kg 壺鈴。模擬蛙式蹬腿收髖與出水換氣時的後鏈爆發力。",
+                caution: "非純靠手臂向上拉提，力量來源於髖關節爆發伸展。"
+            },
+            {
+                id: 'deadbug-core',
+                name: "懸吊對角線死蟲式 (Anti-Rotation Deadbug)",
+                stroke: 'freestyle',
+                strokeTag: '四式通用核心',
+                muscleGroup: 'core',
+                muscles: "腹橫肌、腹斜肌、豎脊肌、髂腰肌",
+                steps: [
+                    "仰臥於瑜伽墊上，雙手舉起垂直於天花板，雙腿屈膝90度抬起。",
+                    "緩慢將右手與左腿同時向地面延伸下落，保持下背緊貼地面不拱起。",
+                    "利用腹肌收縮拉回原位，換對角線重複。"
+                ],
+                equipment: "瑜伽墊 / 可加踝部輕量彈力帶。強化水下流線型（Streamline）抵抗水阻抗變形的能力。",
+                caution: "動作全程下背部不可離開地面，否則表示腰椎代償。"
+            },
+            {
+                id: 'band-sumo-walk',
+                name: "環形彈力帶相撲深蹲與橫移 (Mini Band Sumo Walk)",
+                stroke: 'breaststroke',
+                strokeTag: '蛙式專項',
+                muscleGroup: 'lower',
+                muscles: "臀中肌、股四頭肌、大腿內收肌群",
+                steps: [
+                    "將迷你環形彈力帶套於膝蓋上方。",
+                    "採半蹲姿態，雙腳保持寬距，向側向一步步橫移。",
+                    "隨後進行深蹲下壓，重點在於膝蓋持續向外張開抗彈力帶拉力。"
+                ],
+                equipment: "環形彈力帶。強化蛙式翻腳外展（Catch/Kick）與夾水關節穩定。",
+                caution: "下蹲與橫移時，膝蓋嚴禁內扣（Knee Valgus），必須與腳尖方向一致。"
+            },
+            {
+                id: 'swissball-curl',
+                name: "瑞士球雙腿俯臥勾球 (Swiss Ball Hamstring Curl)",
+                stroke: 'butterfly',
+                strokeTag: '海豚腿 / 仰式打水',
+                muscleGroup: 'lower',
+                muscles: "膕繩肌 (Hamstrings)、臀大肌、腹直肌",
+                steps: [
+                    "仰臥，雙腳腳跟置於瑞士球頂端，雙手平放體側支撐。",
+                    "臀部抬起使身體呈一直線，隨後用力彎曲膝蓋將瑞士球向臀部勾回。",
+                    "頂峰收縮大腿後側1秒，緩慢延伸將球推回。"
+                ],
+                equipment: "健身瑞士球。強化海豚打水與自由式向上鞭打時的腿後鏈發力。",
+                caution: "抬臀時切勿壓迫頸椎，保持肩膀至膝蓋的一致連貫。"
+            },
+            {
+                id: 'single-leg-rdl',
+                name: "壺鈴單腿羅馬尼亞硬舉 (Single-Leg RDL)",
+                stroke: 'freestyle',
+                strokeTag: '自由式 / 仰式平衡',
+                muscleGroup: 'lower',
+                muscles: "膕繩肌、臀大肌、踝關節穩定肌群、深層核心",
+                steps: [
+                    "單腳站立，對側手持壺鈴或啞鈴。",
+                    "支撐腿微屈，髖關節向後折疊，軀幹與後抬腿保持一條直線俯身下傾。",
+                    "感受支撐腿後側拉伸感後，臀部發力站直還原。"
+                ],
+                equipment: "壺鈴 / 啞鈴。建立自由式長距離游進中單側動態平衡感與軀幹動力鏈。",
+                caution: "骨盆保持水平，避免俯身時骨盆向側邊旋轉傾斜。"
+            },
+            {
+                id: 'supine-flutter-kick',
+                name: "仰臥打水 (Supine Flutter Kick)",
+                stroke: 'backstroke',
+                strokeTag: '仰式 / 自由式打水',
+                muscleGroup: 'core',
+                muscles: "腹直肌、髂腰肌 (Hip Flexors)、股四頭肌、深層核心",
+                steps: [
+                    "仰臥平躺於瑜伽墊上，雙手可置於體側壓墊，或向頭頂延伸成流線型 (Streamline)。",
+                    "雙腿伸直離地約 15-20 公分，確保下背部全程緊貼地面不拱起。",
+                    "由髖關節帶動雙腿做小幅度的上下交替鞭打，腳尖保持打直與微內扣。",
+                    "維持勻速呼吸與核心緊繃，避免過度彎曲膝蓋代償踢水。"
+                ],
+                equipment: "瑜伽墊 / 可於雙腳踝加載輕量彈力帶。模擬仰式與自由式水下流線型打水，強化腹肌與髖屈肌群發力。",
+                caution: "打水時若感覺下背部離地酸痛，應提高抬腿角度或縮小打水幅度，避免腰椎代償受傷。"
+            },
+            {
+                id: 'prone-flutter-kick',
+                name: "俯臥打水 (Prone Flutter Kick)",
+                stroke: 'freestyle',
+                strokeTag: '自由式 / 蝶式打水',
+                muscleGroup: 'lower',
+                muscles: "臀大肌、膕繩肌 (Hamstrings)、豎脊肌、深層核心",
+                steps: [
+                    "俯臥趴於瑜伽墊或訓練長凳上，雙臂向前延伸呈流線型 (Streamline) 或置於頭前。",
+                    "核心與臀部緊繃，將雙腿收緊微抬離地，雙腳保持伸直與腳尖繃直。",
+                    "由臀部與大腿後側帶動雙腿進行小幅度、高頻率的上下交替鞭打。",
+                    "保持節奏順暢與核心穩定，避免過度晃動上半身與過度拱腰。"
+                ],
+                equipment: "瑜伽墊 / 訓練長凳 / 可加踝部輕量彈力帶。模擬自由式與蝶式俯臥姿勢下之水下打水，強化後鏈發力與臀肌驅動能力。",
+                caution: "切勿單純靠折腰下背發力抬腿；如有腰椎壓迫感，可於腹部下方墊毛巾並縮小踢腿幅度。"
+            }
+        ];
+
+        // --- APP STATE MANAGEMENT ---
+        let activeTab = 'strokes';
+        let activeStroke = 'freestyle';
+        let strokeFilter = 'all';
+        let muscleFilter = 'all';
+        let todayRoutine = JSON.parse(localStorage.getItem('swimmer_dryland_routine')) || [
+            { id: 'band-evf', completed: false, sets: 3, reps: 15, unit: '次' },
+            { id: 'medball-slam', completed: false, sets: 4, reps: 12, unit: '次' },
+            { id: 'deadbug-core', completed: false, sets: 3, reps: 20, unit: '次' }
+        ];
+        let workoutHistory = JSON.parse(localStorage.getItem('swimmer_dryland_history')) || [];
+        let currentModalId = null;
+
+        // Timer variables
+        let timerInterval = null;
+        let timerSeconds = 0;
+        let isTimerRunning = false;
+
+        // Normalize item to ensure sets & reps numeric compatibility
+        function normalizeItem(item) {
+            if (typeof item.sets === 'string') {
+                const match = item.sets.match(/(\d+)組\s*x\s*(\d+)(\S+)/);
+                if (match) {
+                    item.sets = parseInt(match[1], 10) || 3;
+                    item.reps = parseInt(match[2], 10) || 15;
+                    item.unit = match[3] || '次';
+                } else {
+                    item.sets = 3;
+                    item.reps = 15;
+                    item.unit = '次';
+                }
+            }
+            if (typeof item.sets !== 'number' || isNaN(item.sets)) item.sets = 3;
+            if (typeof item.reps !== 'number' || isNaN(item.reps)) item.reps = 15;
+            if (!item.unit) item.unit = '次';
+            return item;
+        }
+
+        window.onload = function() {
+            // 嘗試鎖定裝置為直螢幕 (Portrait)
+            if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+                window.screen.orientation.lock('portrait').catch(function() {});
+            }
+
+            renderStrokeDetails();
+            renderLibrary();
+            renderTodayRoutine();
+            renderHistory();
+            updateHeaderBadge();
+        };
+
+        // Tab Switcher
+        function switchTab(tab) {
+            activeTab = tab;
+            
+            // Hide all tabs
+            document.getElementById('tab-strokes').classList.add('hidden');
+            document.getElementById('tab-library').classList.add('hidden');
+            document.getElementById('tab-today').classList.add('hidden');
+            document.getElementById('tab-history').classList.add('hidden');
+
+            // Reset Nav Styling
+            document.getElementById('nav-strokes').classList.remove('active-tab');
+            document.getElementById('nav-library').classList.remove('active-tab');
+            document.getElementById('nav-today').classList.remove('active-tab');
+            document.getElementById('nav-history').classList.remove('active-tab');
+
+            // Show current tab
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`nav-${tab}`).classList.add('active-tab');
+
+            if (tab === 'library') {
+                filterExercises();
+            } else if (tab === 'history') {
+                renderHistory();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectStroke(strokeKey) {
+            activeStroke = strokeKey;
+            
+            document.querySelectorAll('.stroke-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-retroDark', 'text-retroCard', 'shadow-retro-sm', 'border-white');
+                btn.classList.add('border-transparent', 'text-retroDark');
+            });
+            const activeBtn = document.getElementById(`btn-stroke-${strokeKey}`);
+            activeBtn.classList.add('bg-retroDark', 'text-retroCard', 'shadow-retro-sm', 'border-2', 'border-white');
+            activeBtn.classList.remove('border-transparent', 'text-retroDark');
+
+            renderStrokeDetails();
+        }
+
+        function renderStrokeDetails() {
+            const data = strokeData[activeStroke];
+            const container = document.getElementById('stroke-detail-card');
+            
+            container.innerHTML = `
+                <div class="border-b-2 border-retroDark pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-mono font-bold text-retroRust tracking-wider uppercase">PROFILE FILE #0${activeStroke.length}</span>
+                        <h3 class="text-lg font-serif font-bold text-retroDark">${data.title}</h3>
+                    </div>
+                    <span class="stamp-badge border-retroDark bg-retroSand text-retroDark">ANALYSED</span>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                    <div class="bg-retroBg p-3 border-2 border-retroDark">
+                        <div class="font-mono font-bold text-retroRust mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-child-reaching"></i> 主要發力肌群 (PRIME MOVERS)
+                        </div>
+                        <p class="text-retroDark leading-relaxed font-medium">${data.primaryMuscles}</p>
+                    </div>
+
+                    <div class="bg-retroCard p-3 border-2 border-retroDark">
+                        <div class="font-mono font-bold text-retroInk mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-link"></i> 水下動力鏈傳導 (KINEMATIC CHAIN)
+                        </div>
+                        <p class="text-retroDark/90 leading-relaxed">${data.chain}</p>
+                    </div>
+
+                    <div class="bg-retroRust/10 p-3 border-2 border-retroRust">
+                        <div class="font-mono font-bold text-retroRust mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-triangle-exclamation"></i> 常見發力盲點與代償 (COMMON FLAWS)
+                        </div>
+                        <p class="text-retroRust leading-relaxed font-medium">${data.flaws}</p>
+                    </div>
+
+                    <div class="bg-retroMustard/15 p-3 border-2 border-retroDark">
+                        <div class="font-mono font-bold text-retroDark mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-dumbbell text-retroMustard"></i> 建議陸上體能方向
+                        </div>
+                        <p class="text-retroDark font-bold">${data.drylandFocus}</p>
+                    </div>
+                </div>
+
+                <button onclick="filterLibraryByStroke('${activeStroke}')" class="w-full bg-retroRust hover:bg-red-800 text-retroCard font-mono font-bold text-xs py-2.5 border-2 border-retroDark shadow-retro active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2 mt-2">
+                    <i class="fa-solid fa-magnifying-glass"></i> 查看專屬陸上動作庫
+                </button>
+            `;
+        }
+
+        function filterLibraryByStroke(stroke) {
+            switchTab('library');
+            setLibraryFilter('stroke', stroke);
+        }
+
+        function setLibraryFilter(type, value) {
+            if (type === 'stroke') {
+                strokeFilter = value;
+                document.querySelectorAll('.filter-pill-stroke').forEach(btn => {
+                    if (btn.dataset.value === value) {
+                        btn.className = 'filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroDark text-retroCard whitespace-nowrap shadow-retro-sm';
+                    } else {
+                        btn.className = 'filter-pill-stroke px-3 py-1.5 border-2 border-retroDark bg-retroCard text-retroDark whitespace-nowrap';
+                    }
+                });
+            } else if (type === 'muscle') {
+                muscleFilter = value;
+                document.querySelectorAll('.filter-pill-muscle').forEach(btn => {
+                    if (btn.dataset.value === value) {
+                        btn.className = 'filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroRust text-retroCard whitespace-nowrap shadow-retro-sm';
+                    } else {
+                        btn.className = 'filter-pill-muscle px-2.5 py-1 border-2 border-retroDark bg-retroSand text-retroDark whitespace-nowrap';
+                    }
+                });
+            }
+            filterExercises();
+        }
+
+        function filterExercises() {
+            const filtered = exerciseLibrary.filter(item => {
+                const matchesStroke = strokeFilter === 'all' || item.stroke === strokeFilter;
+                const matchesMuscle = muscleFilter === 'all' || item.muscleGroup === muscleFilter;
+                return matchesStroke && matchesMuscle;
+            });
+
+            renderFilteredExercises(filtered);
+        }
+
+        function renderLibrary() {
+            renderFilteredExercises(exerciseLibrary);
+        }
+
+        function renderFilteredExercises(list) {
+            const container = document.getElementById('exercise-cards-container');
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10 text-retroDark/50 font-mono text-xs border-2 border-dashed border-retroDark p-6 bg-retroCard">
+                        <i class="fa-solid fa-folder-open text-3xl mb-2 text-retroRust"></i>
+                        <p>未找到符合條件的訓練動作</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = list.map(item => {
+                const isInRoutine = todayRoutine.some(rt => rt.id === item.id);
+                
+                return `
+                    <div onclick="openModal('${item.id}')" class="bg-retroCard p-4 border-2 border-retroDark shadow-retro hover:bg-retroSand/40 transition cursor-pointer space-y-2 relative">
+                        <div class="flex justify-between items-start">
+                            <span class="stamp-badge bg-retroSand text-retroDark font-mono">${item.strokeTag}</span>
+                            ${isInRoutine ? `
+                                <button onclick="event.stopPropagation(); removeFromRoutine('${item.id}')" class="text-retroCard bg-retroRust border-2 border-retroDark p-1.5 text-xs transition hover:bg-red-800" title="從今日課表移除">
+                                    <i class="fa-solid fa-minus text-sm"></i>
+                                </button>
+                            ` : `
+                                <button onclick="event.stopPropagation(); addToRoutine('${item.id}')" class="text-retroDark hover:text-retroRust bg-retroBg border-2 border-retroDark p-1.5 text-xs transition" title="加入今日課表">
+                                    <i class="fa-solid fa-plus text-sm"></i>
+                                </button>
+                            `}
+                        </div>
+                        <h4 class="font-serif font-bold text-retroDark text-sm">${item.name}</h4>
+                        <p class="text-xs text-retroDark/80 font-medium line-clamp-1"><i class="fa-solid fa-bullseye text-retroRust"></i> ${item.muscles}</p>
+                        <div class="flex items-center justify-between text-[11px] font-mono text-retroDark/70 pt-2 border-t border-retroDark/20">
+                            <span><i class="fa-solid fa-dumbbell"></i> 專項器材發力</span>
+                            <span class="text-retroRust font-bold">查看詳情 <i class="fa-solid fa-arrow-right text-[9px]"></i></span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openModal(id) {
+            const item = exerciseLibrary.find(ex => ex.id === id);
+            if (!item) return;
+
+            currentModalId = id;
+            document.getElementById('modal-stroke-tag').innerText = item.strokeTag;
+            document.getElementById('modal-title').innerText = item.name;
+            document.getElementById('modal-muscles').innerText = item.muscles;
+            
+            const stepsList = document.getElementById('modal-steps');
+            stepsList.innerHTML = item.steps.map(s => `<li>${s}</li>`).join('');
+
+            document.getElementById('modal-equipment').innerText = item.equipment;
+            document.getElementById('modal-caution').innerText = item.caution;
+
+            const modalBtn = document.getElementById('modal-add-btn');
+            const isInRoutine = todayRoutine.some(rt => rt.id === id);
+            if (isInRoutine) {
+                modalBtn.innerHTML = '<i class="fa-solid fa-minus"></i> 從今日課表移除';
+                modalBtn.className = "w-full bg-retroRust hover:bg-red-800 text-retroCard font-mono font-bold text-sm py-3 border-2 border-retroDark shadow-retro active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2";
+            } else {
+                modalBtn.innerHTML = '<i class="fa-solid fa-plus"></i> 加入今日課表';
+                modalBtn.className = "w-full bg-retroDark hover:bg-black text-retroCard font-mono font-bold text-sm py-3 border-2 border-retroDark shadow-retro active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2";
+            }
+
+            document.getElementById('exercise-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('exercise-modal').classList.add('hidden');
+            currentModalId = null;
+        }
+
+        function toggleCurrentModalRoutine() {
+            if (!currentModalId) return;
+            const isInRoutine = todayRoutine.some(rt => rt.id === currentModalId);
+            if (isInRoutine) {
+                removeFromRoutine(currentModalId);
+            } else {
+                addToRoutine(currentModalId);
+            }
+            closeModal();
+        }
+
+        function addToRoutine(exerciseId) {
+            const exists = todayRoutine.some(item => item.id === exerciseId);
+            if (exists) {
+                showToast("此動作已在今日課表中");
+                return;
+            }
+
+            todayRoutine.push({
+                id: exerciseId,
+                completed: false,
+                sets: 3,
+                reps: 15,
+                unit: '次'
+            });
+
+            saveRoutine();
+            renderTodayRoutine();
+            updateHeaderBadge();
+            filterExercises();
+            showToast("成功加入今日課表！");
+        }
+
+        function removeFromRoutine(exerciseId) {
+            const index = todayRoutine.findIndex(item => item.id === exerciseId);
+            if (index !== -1) {
+                todayRoutine.splice(index, 1);
+                saveRoutine();
+                renderTodayRoutine();
+                updateHeaderBadge();
+                filterExercises();
+                showToast("已從今日課表移除");
+            }
+        }
+
+        function toggleTaskComplete(index) {
+            todayRoutine[index].completed = !todayRoutine[index].completed;
+            saveRoutine();
+            renderTodayRoutine();
+        }
+
+        function removeTask(index) {
+            todayRoutine.splice(index, 1);
+            saveRoutine();
+            renderTodayRoutine();
+            updateHeaderBadge();
+            filterExercises();
+        }
+
+        function clearTodayWorkout() {
+            if (todayRoutine.length === 0) return;
+            todayRoutine = [];
+            saveRoutine();
+            renderTodayRoutine();
+            updateHeaderBadge();
+            filterExercises();
+            showToast("已清空今日課表");
+        }
+
+        function loadDailyPreset() {
+            todayRoutine = [
+                { id: 'band-evf', completed: false, sets: 3, reps: 15, unit: '次' },
+                { id: 'medball-slam', completed: false, sets: 4, reps: 12, unit: '次' },
+                { id: 'deadbug-core', completed: false, sets: 3, reps: 20, unit: '次' },
+                { id: 'swissball-curl', completed: false, sets: 3, reps: 12, unit: '次' }
+            ];
+            saveRoutine();
+            renderTodayRoutine();
+            updateHeaderBadge();
+            filterExercises();
+            showToast("已載入精選每日選單");
+        }
+
+        function saveRoutine() {
+            localStorage.setItem('swimmer_dryland_routine', JSON.stringify(todayRoutine));
+        }
+
+        function updateHeaderBadge() {
+            const count = todayRoutine.length;
+            document.getElementById('header-workout-count').innerText = `今日 ${count} 項目`;
+            
+            const badge = document.getElementById('tab-badge');
+            if (count > 0) {
+                badge.innerText = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function changeSets(index, delta) {
+            if (!todayRoutine[index]) return;
+            normalizeItem(todayRoutine[index]);
+            let current = todayRoutine[index].sets + delta;
+            if (current < 1) current = 1;
+            todayRoutine[index].sets = current;
+            saveRoutine();
+            renderTodayRoutine();
+        }
+
+        function changeReps(index, delta) {
+            if (!todayRoutine[index]) return;
+            normalizeItem(todayRoutine[index]);
+            let current = todayRoutine[index].reps + delta;
+            if (current < 1) current = 1;
+            todayRoutine[index].reps = current;
+            saveRoutine();
+            renderTodayRoutine();
+        }
+
+        function renderTodayRoutine() {
+            const container = document.getElementById('today-routine-list');
+            
+            if (todayRoutine.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-retroCard p-8 text-center text-retroDark/60 space-y-2 border-2 border-dashed border-retroDark">
+                        <i class="fa-solid fa-clipboard-list text-3xl text-retroRust"></i>
+                        <p class="text-xs font-mono font-bold text-retroDark">目前課表空空如也</p>
+                        <p class="text-[11px] font-sans">前往「動作庫」點擊「+」添加動作，或點擊「載入每日精選」</p>
+                    </div>
+                `;
+                updateProgressBar(0, 0);
+                return;
+            }
+
+            let completedCount = 0;
+
+            container.innerHTML = todayRoutine.map((item, idx) => {
+                normalizeItem(item);
+                const details = exerciseLibrary.find(ex => ex.id === item.id) || {
+                    name: '專項動作',
+                    strokeTag: '專項'
+                };
+
+                if (item.completed) completedCount++;
+
+                return `
+                    <div class="bg-retroCard p-3.5 border-2 border-retroDark shadow-retro flex items-center justify-between gap-3 transition ${item.completed ? 'opacity-70 bg-retroSand/30' : ''}">
+                        <button onclick="toggleTaskComplete(${idx})" class="w-6 h-6 border-2 border-retroDark ${item.completed ? 'bg-retroRust text-retroCard' : 'bg-retroCard'} flex items-center justify-center transition shrink-0">
+                            ${item.completed ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                        </button>
+
+                        <div class="flex-1 min-w-0">
+                            <span class="stamp-badge bg-retroSand text-retroDark text-[9px] cursor-pointer" onclick="openModal('${item.id}')">${details.strokeTag}</span>
+                            <h4 class="text-xs font-serif font-bold text-retroDark ${item.completed ? 'line-through text-retroDark/50' : ''} mt-0.5 cursor-pointer truncate" onclick="openModal('${item.id}')">${details.name}</h4>
+                            
+                            <!-- Steppers for Sets and Reps -->
+                            <div class="flex items-center gap-2 mt-2 text-xs font-mono font-bold flex-wrap">
+                                <!-- Sets Stepper -->
+                                <div class="flex items-center border border-retroDark bg-retroBg">
+                                    <button onclick="changeSets(${idx}, -1)" class="w-5 h-5 bg-retroSand text-retroDark hover:bg-retroRust hover:text-white flex items-center justify-center font-bold transition text-xs select-none">-</button>
+                                    <span class="px-2 text-[11px] text-retroDark">${item.sets}組</span>
+                                    <button onclick="changeSets(${idx}, 1)" class="w-5 h-5 bg-retroSand text-retroDark hover:bg-retroRust hover:text-white flex items-center justify-center font-bold transition text-xs select-none">+</button>
+                                </div>
+
+                                <span class="text-retroRust">×</span>
+
+                                <!-- Reps Stepper -->
+                                <div class="flex items-center border border-retroDark bg-retroBg">
+                                    <button onclick="changeReps(${idx}, -1)" class="w-5 h-5 bg-retroSand text-retroDark hover:bg-retroRust hover:text-white flex items-center justify-center font-bold transition text-xs select-none">-</button>
+                                    <span class="px-2 text-[11px] text-retroDark">${item.reps}${item.unit}</span>
+                                    <button onclick="changeReps(${idx}, 1)" class="w-5 h-5 bg-retroSand text-retroDark hover:bg-retroRust hover:text-white flex items-center justify-center font-bold transition text-xs select-none">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="removeTask(${idx})" class="text-retroDark/40 hover:text-retroRust p-1.5 transition shrink-0">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            updateProgressBar(completedCount, todayRoutine.length);
+        }
+
+        function updateProgressBar(completed, total) {
+            const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-text').innerText = `${completed} / ${total} (${percentage}%)`;
+        }
+
+        // --- HISTORY RECORDING LOGIC ---
+        function saveWorkoutToHistory() {
+            if (todayRoutine.length === 0) {
+                showToast("今日尚無課表項目，無法歸檔");
+                return;
+            }
+
+            const completedItems = todayRoutine.filter(i => i.completed);
+            const targetItems = completedItems.length > 0 ? completedItems : todayRoutine;
+
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const hour = now.getHours().toString().padStart(2, '0');
+            const minute = now.getMinutes().toString().padStart(2, '0');
+            const dateStr = `${year}/${month}/${day} ${hour}:${minute}`;
+
+            const timerStr = document.getElementById('workout-timer-display').innerText;
+
+            const record = {
+                id: Date.now(),
+                date: dateStr,
+                duration: timerStr !== '00:00' ? timerStr : '自訂完成',
+                completedCount: completedItems.length,
+                totalCount: todayRoutine.length,
+                items: targetItems.map(item => {
+                    const ex = exerciseLibrary.find(e => e.id === item.id);
+                    return {
+                        name: ex ? ex.name : '專項訓練',
+                        sets: item.sets,
+                        reps: item.reps,
+                        unit: item.unit
+                    };
+                })
+            };
+
+            workoutHistory.unshift(record);
+            localStorage.setItem('swimmer_dryland_history', JSON.stringify(workoutHistory));
+            renderHistory();
+            showToast("已成功歸檔至「完成紀錄」！");
+        }
+
+        function clearHistory() {
+            if (workoutHistory.length === 0) return;
+            workoutHistory = [];
+            localStorage.setItem('swimmer_dryland_history', JSON.stringify(workoutHistory));
+            renderHistory();
+            showToast("已清空歷史訓練紀錄");
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('history-list-container');
+            if (!container) return;
+
+            if (workoutHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-retroCard p-8 text-center text-retroDark/60 space-y-2 border-2 border-dashed border-retroDark">
+                        <i class="fa-solid fa-box-archive text-3xl text-retroRust"></i>
+                        <p class="text-xs font-mono font-bold text-retroDark">尚無完成訓練紀錄</p>
+                        <p class="text-[11px] font-sans">在「今日課表」完成訓練後，點擊「歸檔訓練」將自動存入歷史紀錄。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = workoutHistory.map(rec => `
+                <div class="bg-retroCard border-2 border-retroDark p-4 shadow-retro space-y-2">
+                    <div class="flex justify-between items-center border-b border-retroDark/20 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="stamp-badge bg-retroRust text-retroCard font-mono"><i class="fa-solid fa-circle-check"></i> 已紀錄</span>
+                            <span class="text-xs font-mono font-bold text-retroDark">${rec.date}</span>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-retroRust"><i class="fa-solid fa-stopwatch"></i> ${rec.duration}</span>
+                    </div>
+                    <div class="text-xs font-mono font-bold text-retroDark">
+                        完成度：${rec.completedCount} / ${rec.totalCount} 項目
+                    </div>
+                    <ul class="text-xs space-y-1 list-disc pl-4 text-retroDark/80 font-medium">
+                        ${rec.items.map(it => `<li>${it.name} <span class="font-mono font-bold text-retroRust">(${it.sets}組 × ${it.reps}${it.unit})</span></li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('timer-toggle-btn');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            } else {
+                isTimerRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                timerInterval = setInterval(() => {
+                    timerSeconds++;
+                    updateTimerDisplay();
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            timerSeconds = 0;
+            updateTimerDisplay();
+            document.getElementById('timer-toggle-btn').innerHTML = '<i class="fa-solid fa-play"></i>';
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+            const secs = (timerSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('workout-timer-display').innerText = `${mins}:${secs}`;
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2200);
+        }
+    </script>
+</body>
+</html>
