@@ -9,7 +9,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="陸上之訓練">
     <link rel="apple-touch-icon" sizes="180x180" href="Dryland-004(180x180).png">
-    <link rel="apple-touch-icon" href="Dryland-004(180x180).png">
     <meta name="theme-color" content="#EFE6D5">
     
     <title>泳手陸上之訓練 | Swimmer Dryland Training</title>
@@ -61,21 +60,14 @@
             background-size: 16px 16px;
             background-position: -8px -8px;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* 確保在大螢幕或橫版時，維持直版比例居中並完整保留復古點陣背景 */
-        @media screen and (min-width: 431px) {
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            body > header, body > main, body > nav {
-                width: 100%;
-                max-width: 430px !important;
-                margin-left: auto;
-                margin-right: auto;
-            }
+        /* RWD 響應式寬度適應：iPhone, iPad 與電腦端 */
+        body > header, body > main, body > nav {
+            width: 100%;
         }
 
         .no-scrollbar::-webkit-scrollbar {
@@ -117,15 +109,15 @@
 
     <!-- Top Header -->
     <header class="glass-header text-retroDark sticky top-0 z-40 border-b-2 border-retroDark pt-safe shrink-0">
-        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-2.5">
                 <!-- 頂部列 Icon 容器：40x40px (w-10 h-10) 搭配 object-contain 確保圖像完整縮放不變形 -->
                 <div class="w-10 h-10 rounded-none bg-retroRust border-2 border-retroDark flex items-center justify-center text-retroCard shadow-retro-sm overflow-hidden p-0.5">
                     <img src="Dryland-004(40x40).png" alt="泳手陸上訓練圖示" class="w-full h-full object-contain rounded-none">
                 </div>
                 <div>
-                    <h1 class="font-serif font-black text-lg text-retroDark tracking-wide leading-tight">泳手陸上之訓練</h1>
-                    <p class="text-[10px] text-retroRust font-mono font-bold tracking-widest uppercase">SWIMMER DRYLAND TRAINING</p>
+                    <h1 class="font-serif font-black text-lg md:text-xl text-retroDark tracking-wide leading-tight">泳手陸上之訓練</h1>
+                    <p class="text-[10px] md:text-xs text-retroRust font-mono font-bold tracking-widest uppercase">SWIMMER DRYLAND TRAINING</p>
                 </div>
             </div>
             
@@ -138,7 +130,7 @@
     </header>
 
     <!-- Main Content Body -->
-    <main class="flex-1 min-h-0 max-w-md mx-auto w-full px-4 pt-3 pb-16 overflow-hidden flex flex-col">
+    <main class="flex-1 min-h-0 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto w-full px-4 pt-3 pb-16 overflow-hidden flex flex-col">
         
         <!-- ================= PAGE 1: STROKE DEMAND ================= -->
         <section id="tab-strokes" class="flex-1 min-h-0 flex flex-col space-y-3 overflow-hidden">
@@ -147,17 +139,17 @@
                 <div class="flex items-start justify-between">
                     <div>
                         <span class="stamp-badge bg-retroRust/10 text-retroRust mb-1 font-mono">BIOMECHANICS</span>
-                        <h2 class="text-xl font-serif font-bold text-retroDark">四大泳式肌肉需求</h2>
+                        <h2 class="text-xl md:text-2xl font-serif font-bold text-retroDark">四大泳式肌肉需求</h2>
                     </div>
-                    <i class="fa-solid fa-person-swimming text-3xl text-retroRust opacity-90"></i>
+                    <i class="fa-solid fa-person-swimming text-3xl md:text-4xl text-retroRust opacity-90"></i>
                 </div>
-                <p class="text-xs text-retroDark/80 leading-relaxed font-medium">
+                <p class="text-xs md:text-sm text-retroDark/80 leading-relaxed font-medium">
                     解構水下抓水與動力鏈傳導，對照陸上專項訓練，建立無死角游進肌肉記憶與核心穩定度。
                 </p>
             </div>
 
             <!-- Stroke Tabs Selector -->
-            <div class="shrink-0 grid grid-cols-4 gap-1.5 p-1.5 bg-retroSand border-2 border-retroDark rounded-none text-center text-xs font-mono font-bold">
+            <div class="shrink-0 grid grid-cols-4 gap-1.5 p-1.5 bg-retroSand border-2 border-retroDark rounded-none text-center text-xs md:text-sm font-mono font-bold">
                 <button onclick="selectStroke('freestyle')" id="btn-stroke-freestyle" class="stroke-tab-btn py-2 border-2 border-white transition bg-retroDark text-retroCard shadow-retro-sm">自由式</button>
                 <button onclick="selectStroke('butterfly')" id="btn-stroke-butterfly" class="stroke-tab-btn py-2 border-2 border-transparent transition text-retroDark">蝶式</button>
                 <button onclick="selectStroke('backstroke')" id="btn-stroke-backstroke" class="stroke-tab-btn py-2 border-2 border-transparent transition text-retroDark">仰式</button>
@@ -165,7 +157,7 @@
             </div>
 
             <!-- Stroke Dynamic Detail Card Container (單獨獨立上下滑動區域) -->
-            <div id="stroke-detail-card" class="flex-1 min-h-0 overflow-y-auto bg-retroCard border-2 border-retroDark p-5 shadow-retro space-y-4 transition-all no-scrollbar pb-6">
+            <div id="stroke-detail-card" class="flex-1 min-h-0 overflow-y-auto bg-retroCard border-2 border-retroDark p-4 md:p-6 shadow-retro space-y-4 transition-all no-scrollbar pb-6">
                 <!-- Javascript will inject stroke details dynamically -->
             </div>
         </section>
@@ -195,8 +187,8 @@
                 </div>
             </div>
 
-            <!-- Scrollable Exercise Cards List ONLY -->
-            <div id="exercise-cards-container" class="flex-1 min-h-0 overflow-y-auto space-y-3 pt-1 pb-6 pr-0.5 no-scrollbar">
+            <!-- Scrollable Exercise Cards List ONLY (支援 iPad & 電腦 網格雙欄/三欄) -->
+            <div id="exercise-cards-container" class="flex-1 min-h-0 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pt-1 pb-6 pr-0.5 no-scrollbar content-start">
                 <!-- Injected dynamically via JS -->
             </div>
         </section>
@@ -241,15 +233,15 @@
 
                 <!-- Quick Preset Action Bar & Record Button -->
                 <div class="flex items-center justify-between gap-2">
-                    <button onclick="loadDailyPreset()" class="flex-1 bg-retroCard border-2 border-retroDark text-retroDark hover:bg-retroSand py-2 px-2.5 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
+                    <button onclick="loadDailyPreset()" class="flex-1 bg-retroCard border-2 border-retroDark text-retroDark hover:bg-retroSand py-2 px-2.5 text-[11px] md:text-xs font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
                         <i class="fa-solid fa-wand-magic-sparkles text-retroMustard"></i>
                         載入每日精選
                     </button>
-                    <button onclick="saveWorkoutToHistory()" class="bg-retroGreen text-retroCard border-2 border-retroDark hover:bg-emerald-800 py-2 px-2.5 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
+                    <button onclick="saveWorkoutToHistory()" class="bg-retroGreen text-retroCard border-2 border-retroDark hover:bg-emerald-800 py-2 px-2.5 text-[11px] md:text-xs font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
                         <i class="fa-solid fa-box-archive"></i>
                         歸檔訓練
                     </button>
-                    <button onclick="clearTodayWorkout()" class="bg-retroCard border-2 border-retroDark text-retroRust hover:bg-rose-100 py-2 px-2.5 text-[11px] font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
+                    <button onclick="clearTodayWorkout()" class="bg-retroCard border-2 border-retroDark text-retroRust hover:bg-rose-100 py-2 px-2.5 text-[11px] md:text-xs font-mono font-bold flex items-center justify-center gap-1 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5">
                         <i class="fa-solid fa-trash-can"></i>
                         清空
                     </button>
@@ -286,8 +278,8 @@
                 </p>
             </div>
 
-            <!-- Scrollable History Entries List ONLY -->
-            <div id="history-list-container" class="flex-1 min-h-0 overflow-y-auto space-y-3 pt-1 pb-6 pr-0.5 no-scrollbar">
+            <!-- Scrollable History Entries List ONLY (支援雙欄/大螢幕視圖) -->
+            <div id="history-list-container" class="flex-1 min-h-0 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3 pt-1 pb-6 pr-0.5 no-scrollbar content-start">
                 <!-- Injected dynamically via JS -->
             </div>
         </section>
@@ -295,8 +287,8 @@
     </main>
 
     <!-- EXERCISE DETAIL MODAL -->
-    <div id="exercise-modal" class="fixed inset-0 bg-retroDark/80 backdrop-blur-xs z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-retroCard w-full max-w-md max-h-[85vh] border-t-4 sm:border-2 border-retroDark overflow-y-auto p-5 space-y-4 shadow-retro-lg">
+    <div id="exercise-modal" class="fixed inset-0 bg-retroDark/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-retroCard w-full max-w-md md:max-w-xl max-h-[85vh] border-2 border-retroDark overflow-y-auto p-5 space-y-4 shadow-retro-lg">
             
             <div class="flex justify-between items-start border-b-2 border-retroDark pb-3">
                 <div>
@@ -352,27 +344,27 @@
 
     <!-- Bottom Tab Bar -->
     <nav class="fixed bottom-0 left-0 right-0 glass-header border-t-2 border-retroDark z-40 pb-safe">
-        <div class="max-w-md mx-auto grid grid-cols-4 py-1 px-1 text-center font-mono font-bold">
+        <div class="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto grid grid-cols-4 py-1 px-1 text-center font-mono font-bold">
             
             <button onclick="switchTab('strokes')" id="nav-strokes" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition active-tab border border-transparent">
                 <i class="fa-solid fa-person-swimming text-lg"></i>
-                <span class="text-[10px] tracking-tight">泳式需求</span>
+                <span class="text-[10px] md:text-xs tracking-tight">泳式需求</span>
             </button>
 
             <button onclick="switchTab('library')" id="nav-library" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition border border-transparent">
                 <i class="fa-solid fa-book-bookmark text-lg"></i>
-                <span class="text-[10px] tracking-tight">動作庫</span>
+                <span class="text-[10px] md:text-xs tracking-tight">動作庫</span>
             </button>
 
             <button onclick="switchTab('today')" id="nav-today" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition relative border border-transparent">
                 <i class="fa-solid fa-clipboard-check text-lg"></i>
-                <span class="text-[10px] tracking-tight">今日課表</span>
+                <span class="text-[10px] md:text-xs tracking-tight">今日課表</span>
                 <span id="tab-badge" class="absolute top-1 right-2 bg-retroRust text-retroCard text-[9px] font-mono font-bold w-4 h-4 border border-retroDark flex items-center justify-center hidden">0</span>
             </button>
 
             <button onclick="switchTab('history')" id="nav-history" class="py-1.5 flex flex-col items-center justify-center gap-0.5 text-retroDark transition border border-transparent">
                 <i class="fa-solid fa-clock-rotate-left text-lg"></i>
-                <span class="text-[10px] tracking-tight">完成紀錄</span>
+                <span class="text-[10px] md:text-xs tracking-tight">完成紀錄</span>
             </button>
 
         </div>
@@ -385,36 +377,34 @@
     </div>
 
     <script>
-        
-        // --- DATA: STROKE MUSCLE DEMAND ---
         const strokeData = {
             freestyle: {
                 title: "自由式 Freestyle (捷泳)",
-                primaryMuscles: "背闊肌 (Latissimus Dorsi)、胸大肌、腹斜肌、三角肌前束、臀大肌、股四頭肌",
-                chain: "手掌高肘抱水 -> 背闊肌收縮下拉 -> 軀幹對角線旋轉轉動 -> 核心傳導能量至下肢鞭打打水",
-                flaws: "1. 抱水時肘關節下塌（Drop Elbow），失去抓水阻力。<br>2. 髖關節未隨肩膀做對角旋轉，導致水阻大增大。<br>3. 打水時過度屈膝代償，未能由臀部髖關節發力。",
-                drylandFocus: "高肘拉力帶推水、軀幹抗旋轉死蟲式、單腿硬舉連貫發力。"
+                primaryMuscles: "背闊肌 (Lats)、胸大肌 (Pectoralis Major)、三角肌後束 (Rear Delts)、三頭肌 (Triceps)",
+                chain: "水下抱水至划水 (Catch to Pull) 依賴背闊肌主導，結合臀大肌與軀幹對角線旋轉，將動力經由核心傳遞至下肢抓水踢腿。",
+                flaws: "常見肩膀過度內旋導致肩夾擠症候群 (Impingement)，或軀幹晃動導致水阻過大。",
+                drylandFocus: "強調高肘抱水 Pull-down、胸椎旋轉活動度、核心抗旋轉穩定。"
             },
             butterfly: {
                 title: "蝶式 Butterfly",
-                primaryMuscles: "背闊肌、胸大肌、腹直肌/深層核心、腰方肌、臀大肌、膕繩肌",
-                chain: "雙臂抱水推水 -> 胸椎向下壓水 -> 核心帶動髖關節快速屈伸 -> 雙腿波浪鞭打",
-                flaws: "1. 呼吸時頭抬過高，破壞軀幹流線型。<br>2. 海豚腿打水僅用小腿甩動，缺乏大腿後側與臀部連貫連鎖發力。<br>3. 抱水時肩膀過度緊張造成肩夾擊。",
-                drylandFocus: "藥球過頂下砸爆發、TRX懸吊核心Tuck、胸椎延伸 stretch 與懸吊Y-Fly。"
+                primaryMuscles: "背闊肌 (Lats)、胸大肌 (Pectoralis)、豎脊肌 (Erector Spinae)、腹直肌與斜肌 (Abs & Obliques)",
+                chain: "雙臂對稱抓水配合兩次波浪踢腿 (Dolphin Kick)，動力來自胸椎展收與下背-核心鞭打效應。",
+                flaws: "腰椎過度伸展 (Hyper-lordosis) 導致下背負擔過大，肩胛穩定度不足影響移臂流暢度。",
+                drylandFocus: "腹肌爆發力 (Medball Slam)、臀肌延伸、背肌等長肌力與肩胛下沉訓練。"
             },
             backstroke: {
                 title: "仰式 Backstroke",
-                primaryMuscles: "背闊肌、背部菱形肌、肩胛下肌、腹斜肌、股四頭肌、髂腰肌",
-                chain: "側身抱水向後推壓 -> 身體繞縱軸交替轉體 -> 腹斜肌穩定 -> 足背向上鞭打踢水",
-                flaws: "1. 踢水時膝蓋頂出水面（坐姿打水）。<br>2. 移臂時手腕與肩膀過度緊繃，造成肩關節旋轉限制。<br>3. 髖關節下沉，增加臀部水阻。",
-                drylandFocus: "仰臥瑞士球腿勾捲、懸吊反向划船、側板支撐帶旋轉。"
+                primaryMuscles: "背闊肌 (Lats)、胸大肌與小肌、菱形肌 (Rhomboids)、臀中肌與核心 (Glutes & Core)",
+                chain: "仰臥姿勢下，身體沿縱軸持續滾轉 (Body Roll)，依賴臀肌與斜肌維持平衡，臂划水與踢腿交叉傳導。",
+                flaws: "頭部位置過高/過低影響水阻，頭頸過度緊張，肩關節柔韌度不足影響抱水深度。",
+                drylandFocus: "胸椎後伸活動度、Y-T-W 肩胛穩定、滾轉核心抗旋轉與單腳穩定。"
             },
             breaststroke: {
                 title: "蛙式 Breaststroke",
-                primaryMuscles: "大圓肌、胸大肌、內收肌群 (Adductors)、臀中肌、股四頭肌、腹直肌",
-                chain: "外劃抱水內收 -> 軀幹抬起吸氣 -> 腳跟向臀部收腳 -> 內收肌群爆發夾水蹬腿",
-                flaws: "1. 蹬腿時膝蓋外張過寬（寬膝蹬腿），大幅增加水阻。<br>2. 抱水過度超越肩膀後方，破壞頻率。<br>3. 收腳過快拉低體位。",
-                drylandFocus: "迷你彈力帶相撲深蹲、壺鈴髖爆發 (Hip Hinge)、彈力帶胸前雙臂夾擠。"
+                primaryMuscles: "內收肌群 (Adductors)、臀大肌 (Glutes)、大腿後肌 (Hamstrings)、背闊肌與胸肌",
+                chain: "強烈的水下高肘抱水提胸，結合下肢內收蹬腿 (Whip Kick)，對核心縱向收縮與下肢內收肌群要求極高。",
+                flaws: "蹬腿角度不當導致膝關節內側韌帶受壓 (Swimmer's Knee)，抱水時腰椎代償過度彎曲。",
+                drylandFocus: "髖關節外展/內收爆發力、腘繩肌/臀肌屈伸、深層核心縱向伸展與支撐。"
             }
         };
 
@@ -422,253 +412,227 @@
         const exerciseLibrary = [
             {
                 id: 'band-evf',
-                name: "彈力帶高抱水抓水模擬 (Band EVF Catch)",
+                name: '彈力帶高肘抱水 (EVF Pull-down)',
+                strokeTag: '自由式/蝶式專項',
                 stroke: 'freestyle',
-                strokeTag: '自由式 / 蝶式',
                 muscleGroup: 'lat',
-                muscles: "背闊肌、大圓肌、前鋸肌、肩袖穩定肌群",
+                muscles: '背闊肌、大圓肌、前鋸肌、肩胛下肌',
                 steps: [
-                    "將彈力帶固定於高位，雙手握住拉環，身體前傾呈水下流線微俯體位。",
-                    "手臂前伸，保持肘關節高於手腕位置（EVF 高肘抱水）。",
-                    "由背闊肌發力，帶動前臂垂直向後下施壓，模仿水中抓水至推水前半程。",
-                    "控制速度頂峰收縮1秒，再緩慢還原至前伸位置。"
+                    '雙腳與肩同寬，俯身向前保持背部打直。',
+                    '手握彈力帶，保持肘關節高於手腕 (Early Vertical Forearm)。',
+                    '利用背闊肌發力將手掌向下向後拉引，模擬水下抱水划水軌跡。'
                 ],
-                equipment: "彈力帶 / 懸吊拉力繩。複製水中高肘抓水（Early Vertical Forearm）感覺，建立前臂抓水平面感。",
-                caution: "嚴禁動作中肘關節先下塌；肩關節保持下沉，避免聳肩造成肩峰下夾擊。"
+                equipment: '彈力帶 / 繩索滑輪',
+                caution: '切勿過度使用三頭肌直臂下拉，應時刻保持肘高於手腕。'
             },
             {
                 id: 'medball-slam',
-                name: "藥球過頂爆發甩投 (Overhead Medicine Ball Slam)",
+                name: '藥球爆發力砸球 (Medball Slam)',
+                strokeTag: '蝶式/自由式爆發力',
                 stroke: 'butterfly',
-                strokeTag: '蝶式 / 蛙式爆發',
                 muscleGroup: 'core',
-                muscles: "腹直肌、腹斜肌、背闊肌、胸大肌、臀大肌",
+                muscles: '腹直肌、背闊肌、三角肌、前鋸肌',
                 steps: [
-                    "雙腳與肩同寬站立，雙手高舉藥球至頭頂上方，充分伸展身體。",
-                    "核心肌群強烈收縮，帶動上半身迅速屈曲向下，將藥球猛力甩下砸向地面。",
-                    "順應髖關節屈曲，下蹲緩衝並迅速拾球重複。"
+                    '雙手持藥球高舉過頭，伸展全軀幹。',
+                    '利用核心與背肌爆發力將藥球強烈砸向地面。',
+                    '順勢蹲下接球並重複運動。'
                 ],
-                equipment: "5-8kg 實心藥球。模擬蝶式與蛙式出水後，核心強烈壓胸拉腰的爆發貫穿力。",
-                caution: "下砸時脊椎保持中立，避免腰椎過度過伸（Hyper-extension）；注意足部安全。"
-            },
-            {
-                id: 'trx-y-fly',
-                name: "TRX 懸吊反向 Y-Fly (TRX Rear Delt & Y-Raise)",
-                stroke: 'backstroke',
-                strokeTag: '仰式 / 自由式移臂',
-                muscleGroup: 'shoulder',
-                muscles: "三角肌後束、菱形肌、下斜方肌、棘下肌",
-                steps: [
-                    "手握 TRX 握把，腳向前邁呈傾斜站立，雙臂向前直伸。",
-                    "保持身體直板，肩胛骨後收帶動雙臂向外上方展開呈「Y」字形。",
-                    "頂峰停留1秒後，慢速控速還原。"
-                ],
-                equipment: "TRX 懸吊訓練繩。強化仰式與自由式空中移臂（Recovery）時肩胛骨穩定性。",
-                caution: "嚴禁借用腰力拱腰代償；保持臀肌與核心全程鎖定。"
-            },
-            {
-                id: 'kb-high-pull',
-                name: "壺鈴髖爆發高拉 (Kettlebell High Pull)",
-                stroke: 'breaststroke',
-                strokeTag: '蛙式 / 蹬壁爆發',
-                muscleGroup: 'lower',
-                muscles: "臀大肌、膕繩肌、三角肌、斜方肌、核心",
-                steps: [
-                    "雙腳寬於肩站立，雙手握壺鈴，做出髖關節後折（Hip Hinge）。",
-                    "臀部爆發力向前伸展推髖，順勢利用動量將壺鈴拉至胸前高肘位置。",
-                    "控速將壺鈴放回下擺。"
-                ],
-                equipment: "8-16kg 壺鈴。模擬蛙式蹬腿收髖與出水換氣時的後鏈爆發力。",
-                caution: "非純靠手臂向上拉提，力量來源於髖關節爆發伸展。"
+                equipment: '重力藥球 (3-8kg)',
+                caution: '向下砸球時保持背部剛性，勿彎腰下背代償。'
             },
             {
                 id: 'deadbug-core',
-                name: "懸吊對角線死蟲式 (Anti-Rotation Deadbug)",
-                stroke: 'freestyle',
-                strokeTag: '四式通用核心',
+                name: '死蟲式核心抗旋轉 (Deadbug)',
+                strokeTag: '仰式/自由式流線型',
+                stroke: 'backstroke',
                 muscleGroup: 'core',
-                muscles: "腹橫肌、腹斜肌、豎脊肌、髂腰肌",
+                muscles: '腹橫肌、腹直肌、髂腰肌',
                 steps: [
-                    "仰臥於瑜伽墊上，雙手舉起垂直於天花板，雙腿屈膝90度抬起。",
-                    "緩慢將右手與左腿同時向地面延伸下落，保持下背緊貼地面不拱起。",
-                    "利用腹肌收縮拉回原位，換對角線重複。"
+                    '仰臥於平地，雙手舉高，雙腿屈膝90度。',
+                    '對角線手腳慢速伸展下放至接近地面，保持下背貼緊地面。',
+                    '交替進行，維持軀幹穩定無晃動。'
                 ],
-                equipment: "瑜伽墊 / 可加踝部輕量彈力帶。強化水下流線型（Streamline）抵抗水阻抗變形的能力。",
-                caution: "動作全程下背部不可離開地面，否則表示腰椎代償。"
-            },
-            {
-                id: 'band-sumo-walk',
-                name: "環形彈力帶相撲深蹲與橫移 (Mini Band Sumo Walk)",
-                stroke: 'breaststroke',
-                strokeTag: '蛙式專項',
-                muscleGroup: 'lower',
-                muscles: "臀中肌、股四頭肌、大腿內收肌群",
-                steps: [
-                    "將迷你環形彈力帶套於膝蓋上方。",
-                    "採半蹲姿態，雙腳保持寬距，向側向一步步橫移。",
-                    "隨後進行深蹲下壓，重點在於膝蓋持續向外張開抗彈力帶拉力。"
-                ],
-                equipment: "環形彈力帶。強化蛙式翻腳外展（Catch/Kick）與夾水關節穩定。",
-                caution: "下蹲與橫移時，膝蓋嚴禁內扣（Knee Valgus），必須與腳尖方向一致。"
+                equipment: '徒手 / 輕量沙包',
+                caution: '下背不可拱起離開地面，專注於深層腹橫肌緊繃。'
             },
             {
                 id: 'swissball-curl',
-                name: "瑞士球雙腿俯臥勾球 (Swiss Ball Hamstring Curl)",
-                stroke: 'butterfly',
-                strokeTag: '海豚腿 / 仰式打水',
+                name: '健身球腘繩肌捲腿 (Swiss Ball Leg Curl)',
+                strokeTag: '蛙式/下肢後鏈',
+                stroke: 'breaststroke',
                 muscleGroup: 'lower',
-                muscles: "膕繩肌 (Hamstrings)、臀大肌、腹直肌",
+                muscles: '大腿後肌 (Hamstrings)、臀大肌、深層核心',
                 steps: [
-                    "仰臥，雙腳腳跟置於瑞士球頂端，雙手平放體側支撐。",
-                    "臀部抬起使身體呈一直線，隨後用力彎曲膝蓋將瑞士球向臀部勾回。",
-                    "頂峰收縮大腿後側1秒，緩慢延伸將球推回。"
+                    '仰臥，雙腳跟置於健身球上，抬高臀部成直線。',
+                    '屈膝將健身球拉向臀部，頂峰收縮臀肌與腘繩肌。',
+                    '緩慢推回起始位置。'
                 ],
-                equipment: "健身瑞士球。強化海豚打水與自由式向上鞭打時的腿後鏈發力。",
-                caution: "抬臀時切勿壓迫頸椎，保持肩膀至膝蓋的一致連貫。"
+                equipment: '健身球 (Swiss Ball)',
+                caution: '全程維持髖部抬高，切勿下塌。'
             },
             {
-                id: 'single-leg-rdl',
-                name: "壺鈴單腿羅馬尼亞硬舉 (Single-Leg RDL)",
+                id: 'bird-dog-core',
+                name: '鳥狗式核心對角延伸 (Bird-Dog)',
+                strokeTag: '全泳式/核心抗旋轉',
                 stroke: 'freestyle',
-                strokeTag: '自由式 / 仰式平衡',
-                muscleGroup: 'lower',
-                muscles: "膕繩肌、臀大肌、踝關節穩定肌群、深層核心",
-                steps: [
-                    "單腳站立，對側手持壺鈴或啞鈴。",
-                    "支撐腿微屈，髖關節向後折疊，軀幹與後抬腿保持一條直線俯身下傾。",
-                    "感受支撐腿後側拉伸感後，臀部發力站直還原。"
-                ],
-                equipment: "壺鈴 / 啞鈴。建立自由式長距離游進中單側動態平衡感與軀幹動力鏈。",
-                caution: "骨盆保持水平，避免俯身時骨盆向側邊旋轉傾斜。"
-            },
-            {
-                id: 'supine-flutter-kick',
-                name: "仰臥打水 (Supine Flutter Kick)",
-                stroke: 'backstroke',
-                strokeTag: '仰式 / 自由式打水',
                 muscleGroup: 'core',
-                muscles: "腹直肌、髂腰肌 (Hip Flexors)、股四頭肌、深層核心",
+                muscles: '豎脊肌、臀大肌、腹橫肌、斜方肌中下束',
                 steps: [
-                    "仰臥平躺於瑜伽墊上，雙手可置於體側壓墊，或向頭頂延伸成流線型 (Streamline)。",
-                    "雙腿伸直離地約 15-20 公分，確保下背部全程緊貼地面不拱起。",
-                    "由髖關節帶動雙腿做小幅度的上下交替鞭打，腳尖保持打直與微內扣。",
-                    "維持勻速呼吸與核心緊繃，避免過度彎曲膝蓋代償踢水。"
+                    '採四足跪姿，手掌在肩膀正下方，膝蓋在髖關節正下方。',
+                    '同時向前伸展右手、向後延伸左腿，保持軀幹平整無旋轉。',
+                    '頂峰停留1-2秒後緩慢收回，換邊進行。'
                 ],
-                equipment: "瑜伽墊 / 可於雙腳踝加載輕量彈力帶。模擬仰式與自由式水下流線型打水，強化腹肌與髖屈肌群發力。",
-                caution: "打水時若感覺下背部離地酸痛，應提高抬腿角度或縮小打水幅度，避免腰椎代償受傷。"
+                equipment: '瑜伽墊 / 徒手',
+                caution: '延伸時切勿骨盆傾斜或腰椎過度下凸。'
             },
             {
-                id: 'prone-flutter-kick',
-                name: "俯臥打水 (Prone Flutter Kick)",
-                stroke: 'freestyle',
-                strokeTag: '自由式 / 蝶式打水',
-                muscleGroup: 'lower',
-                muscles: "臀大肌、膕繩肌 (Hamstrings)、豎脊肌、深層核心",
+                id: 'ytw-raise',
+                name: 'Y-T-W 肩胛穩定飛鳥 (Y-T-W Raise)',
+                strokeTag: '仰式/肩袖防傷',
+                stroke: 'backstroke',
+                muscleGroup: 'shoulder',
+                muscles: '斜方肌中下束、菱形肌、岡下肌、小圓肌',
                 steps: [
-                    "俯臥趴於瑜伽墊或訓練長凳上，雙臂向前延伸呈流線型 (Streamline) 或置於頭前。",
-                    "核心與臀部緊繃，將雙腿收緊微抬離地，雙腳保持伸直與腳尖繃直。",
-                    "由臀部與大腿後側帶動雙腿進行小幅度、高頻率的上下交替鞭打。",
-                    "保持節奏順暢與核心穩定，避免過度晃動上半身與過度拱腰。"
+                    '俯臥於瑜伽墊或斜板上，手臂分別伸展成 Y、T、W 字型。',
+                    '以肩胛骨收縮帶動手臂向上抬升，頂峰停留1秒。',
+                    '專注於肩胛骨下沉與後收，防範肩夾擠。'
                 ],
-                equipment: "瑜伽墊 / 訓練長凳 / 可加踝部輕量彈力帶。模擬自由式與蝶式俯臥姿勢下之水下打水，強化後鏈發力與臀肌驅動能力。",
-                caution: "切勿單純靠折腰下背發力抬腿；如有腰椎壓迫感，可於腹部下方墊毛巾並縮小踢腿幅度。"
+                equipment: '徒手 / 輕量啞鈴 (1-2kg)',
+                caution: '避免過度聳肩代償，保持頸部放鬆。'
+            },
+            {
+                id: 'jump-squat',
+                name: '爆發力深蹲跳 (Explosive Jump Squat)',
+                strokeTag: '蛙式蹬腿/出發轉身爆發力',
+                stroke: 'breaststroke',
+                muscleGroup: 'lower',
+                muscles: '股四頭肌、臀大肌、腓腸肌',
+                steps: [
+                    '雙腳與肩同寬，下蹲至髖關節略低於膝蓋。',
+                    '向下推地爆發力向上跳起，空中維持流線型姿勢。',
+                    '軟著地並立即銜接下一次下蹲。'
+                ],
+                equipment: '徒手 / 負重彈力帶',
+                caution: '著地時膝蓋保持與腳尖同向，避免內扣。'
+            },
+            {
+                id: 'pallof-press',
+                name: '帕洛夫按壓抗旋轉 (Pallof Press)',
+                strokeTag: '自由式/滾轉流線型',
+                stroke: 'freestyle',
+                muscleGroup: 'core',
+                muscles: '腹斜肌、腹橫肌、前鋸肌',
+                steps: [
+                    '側向站立於彈力帶固定點旁，雙手將彈力帶拉至胸前。',
+                    '將彈力帶向正前方推伸，抵禦彈力帶側向拉力保持軀幹不旋轉。',
+                    '停留1-2秒後收回胸前，交替方向。'
+                ],
+                equipment: '彈力帶 / 繩索滑輪',
+                caution: '推伸過程保持骨盆與肩膀面向前方，不可被拉旋轉。'
+            },
+            {
+                id: 'lat-pulldown-band',
+                name: '雙臂彈力帶直臂下拉 (Straight-Arm Pulldown)',
+                strokeTag: '蝶式/抱水划水拉力',
+                stroke: 'butterfly',
+                muscleGroup: 'lat',
+                muscles: '背闊肌、胸大肌下束、三頭肌長頭',
+                steps: [
+                    '將彈力帶固定於高處，雙手握住微屈肘部。',
+                    '利用背闊肌發力將手柄向下弧形拉至大腿兩側。',
+                    '控制離心速度緩慢還原。'
+                ],
+                equipment: '高位彈力帶 / 滑輪下拉機',
+                caution: '避免彎腰過度利用體重借力，保持脊柱中立。'
+            },
+            {
+                id: 'breaststroke-kick-band',
+                name: '彈力帶蛙式腿外展內收 (Band Frog Kick)',
+                strokeTag: '蛙式專項下肢',
+                stroke: 'breaststroke',
+                muscleGroup: 'lower',
+                muscles: '大腿內收肌群、臀中肌、臀大肌',
+                steps: [
+                    '將環狀彈力帶套於膝蓋上方或腳踝。',
+                    '採仰臥屈膝姿勢，模擬蛙式收腿、外翻與夾腿蹬水軌跡。',
+                    '專注於內收肌群夾緊與臀肌爆發力伸展。'
+                ],
+                equipment: '環狀彈力帶 (Mini Loop Band)',
+                caution: '外翻時注意膝關節角度，切勿強行扭轉膝蓋。'
+            },
+            {
+                id: 'face-pull',
+                name: '彈力帶面拉與肩外旋 (Band Face Pull)',
+                strokeTag: '全泳式/肩袖健康',
+                stroke: 'butterfly',
+                muscleGroup: 'shoulder',
+                muscles: '三角肌後束、岡下肌、小圓肌、斜方肌',
+                steps: [
+                    '手握高位彈力帶，向臉部方向拉引。',
+                    '手肘向兩側張開，手腕拉至眼睛高度同時向後外旋。',
+                    '感受肩胛骨後收與肩關節外旋肌群發力。'
+                ],
+                equipment: '彈力帶 / 繩索滑輪',
+                caution: '切勿向前傾頭接球，保持頭頸中立。'
             }
         ];
 
-        // --- APP STATE MANAGEMENT ---
-        let activeTab = 'strokes';
         let activeStroke = 'freestyle';
         let strokeFilter = 'all';
         let muscleFilter = 'all';
-        let todayRoutine = JSON.parse(localStorage.getItem('swimmer_dryland_routine')) || [
-            { id: 'band-evf', completed: false, sets: 3, reps: 15, unit: '次' },
-            { id: 'medball-slam', completed: false, sets: 4, reps: 12, unit: '次' },
-            { id: 'deadbug-core', completed: false, sets: 3, reps: 20, unit: '次' }
-        ];
+        let todayRoutine = JSON.parse(localStorage.getItem('swimmer_dryland_routine')) || [];
         let workoutHistory = JSON.parse(localStorage.getItem('swimmer_dryland_history')) || [];
+        let timerInterval = null;
+        let isTimerRunning = false;
+        let timerSeconds = 0;
         let currentModalId = null;
 
-        // Timer variables
-        let timerInterval = null;
-        let timerSeconds = 0;
-        let isTimerRunning = false;
-
-        // Normalize item to ensure sets & reps numeric compatibility
         function normalizeItem(item) {
-            if (typeof item.sets === 'string') {
-                const match = item.sets.match(/(\d+)組\s*x\s*(\d+)(\S+)/);
-                if (match) {
-                    item.sets = parseInt(match[1], 10) || 3;
-                    item.reps = parseInt(match[2], 10) || 15;
-                    item.unit = match[3] || '次';
-                } else {
-                    item.sets = 3;
-                    item.reps = 15;
-                    item.unit = '次';
-                }
-            }
-            if (typeof item.sets !== 'number' || isNaN(item.sets)) item.sets = 3;
-            if (typeof item.reps !== 'number' || isNaN(item.reps)) item.reps = 15;
+            if (!item.sets || item.sets < 1) item.sets = 3;
+            if (!item.reps || item.reps < 1) item.reps = 15;
             if (!item.unit) item.unit = '次';
-            return item;
         }
 
-        window.onload = function() {
-            // 嘗試鎖定裝置為直螢幕 (Portrait)
-            if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
-                window.screen.orientation.lock('portrait').catch(function() {});
-            }
+        function switchTab(tabName) {
+            const tabs = ['strokes', 'library', 'today', 'history'];
+            tabs.forEach(t => {
+                const sec = document.getElementById(`tab-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (sec) {
+                    if (t === tabName) {
+                        sec.classList.remove('hidden');
+                    } else {
+                        sec.classList.add('hidden');
+                    }
+                }
+                if (nav) {
+                    if (t === tabName) {
+                        nav.classList.add('active-tab');
+                    } else {
+                        nav.classList.remove('active-tab');
+                    }
+                }
+            });
 
-            renderStrokeDetails();
-            renderLibrary();
-            renderTodayRoutine();
-            renderHistory();
-            updateHeaderBadge();
-        };
-
-        // Tab Switcher
-        function switchTab(tab) {
-            activeTab = tab;
-            
-            // Hide all tabs
-            document.getElementById('tab-strokes').classList.add('hidden');
-            document.getElementById('tab-library').classList.add('hidden');
-            document.getElementById('tab-today').classList.add('hidden');
-            document.getElementById('tab-history').classList.add('hidden');
-
-            // Reset Nav Styling
-            document.getElementById('nav-strokes').classList.remove('active-tab');
-            document.getElementById('nav-library').classList.remove('active-tab');
-            document.getElementById('nav-today').classList.remove('active-tab');
-            document.getElementById('nav-history').classList.remove('active-tab');
-
-            // Show current tab
-            document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            document.getElementById(`nav-${tab}`).classList.add('active-tab');
-
-            if (tab === 'library') {
-                filterExercises();
-            } else if (tab === 'history') {
-                renderHistory();
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (tabName === 'library') renderLibrary();
+            if (tabName === 'today') renderTodayRoutine();
+            if (tabName === 'history') renderHistory();
         }
 
         function selectStroke(strokeKey) {
             activeStroke = strokeKey;
-            
-            document.querySelectorAll('.stroke-tab-btn').forEach(btn => {
-                btn.classList.remove('bg-retroDark', 'text-retroCard', 'shadow-retro-sm', 'border-white');
-                btn.classList.add('border-transparent', 'text-retroDark');
+            const btns = ['freestyle', 'butterfly', 'backstroke', 'breaststroke'];
+            btns.forEach(k => {
+                const btn = document.getElementById(`btn-stroke-${k}`);
+                if (btn) {
+                    if (k === strokeKey) {
+                        btn.className = 'stroke-tab-btn py-2 border-2 border-white transition bg-retroDark text-retroCard shadow-retro-sm';
+                    } else {
+                        btn.className = 'stroke-tab-btn py-2 border-2 border-transparent transition text-retroDark';
+                    }
+                }
             });
-            const activeBtn = document.getElementById(`btn-stroke-${strokeKey}`);
-            activeBtn.classList.add('bg-retroDark', 'text-retroCard', 'shadow-retro-sm', 'border-2', 'border-white');
-            activeBtn.classList.remove('border-transparent', 'text-retroDark');
-
             renderStrokeDetails();
-            
-            // 切換泳式時重置內容滾動條至頂部
             const detailCard = document.getElementById('stroke-detail-card');
             if (detailCard) detailCard.scrollTop = 0;
         }
@@ -676,38 +640,39 @@
         function renderStrokeDetails() {
             const data = strokeData[activeStroke];
             const container = document.getElementById('stroke-detail-card');
+            if (!container || !data) return;
             
             container.innerHTML = `
                 <div class="border-b-2 border-retroDark pb-3 flex justify-between items-center">
                     <div>
-                        <h3 class="text-lg font-serif font-bold text-retroDark">${data.title}</h3>
+                        <h3 class="text-lg md:text-xl font-serif font-bold text-retroDark">${data.title}</h3>
                     </div>
                     <span class="stamp-badge border-retroDark bg-retroSand text-retroDark">ANALYSED</span>
                 </div>
 
-                <div class="space-y-3 text-xs">
-                    <div class="bg-retroBg p-3 border-2 border-retroDark">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm">
+                    <div class="bg-retroBg p-3 md:p-4 border-2 border-retroDark">
                         <div class="font-mono font-bold text-retroRust mb-1 flex items-center gap-1.5">
                             <i class="fa-solid fa-child-reaching"></i> 主要發力肌群 (PRIME MOVERS)
                         </div>
                         <p class="text-retroDark leading-relaxed font-medium">${data.primaryMuscles}</p>
                     </div>
 
-                    <div class="bg-retroCard p-3 border-2 border-retroDark">
+                    <div class="bg-retroCard p-3 md:p-4 border-2 border-retroDark">
                         <div class="font-mono font-bold text-retroInk mb-1 flex items-center gap-1.5">
                             <i class="fa-solid fa-link"></i> 水下動力鏈傳導 (KINEMATIC CHAIN)
                         </div>
                         <p class="text-retroDark/90 leading-relaxed">${data.chain}</p>
                     </div>
 
-                    <div class="bg-retroRust/10 p-3 border-2 border-retroRust">
+                    <div class="bg-retroRust/10 p-3 md:p-4 border-2 border-retroRust">
                         <div class="font-mono font-bold text-retroRust mb-1 flex items-center gap-1.5">
                             <i class="fa-solid fa-triangle-exclamation"></i> 常見發力盲點與代償 (COMMON FLAWS)
                         </div>
                         <p class="text-retroRust leading-relaxed font-medium">${data.flaws}</p>
                     </div>
 
-                    <div class="bg-retroMustard/15 p-3 border-2 border-retroDark">
+                    <div class="bg-retroMustard/15 p-3 md:p-4 border-2 border-retroDark">
                         <div class="font-mono font-bold text-retroDark mb-1 flex items-center gap-1.5">
                             <i class="fa-solid fa-dumbbell text-retroMustard"></i> 建議陸上體能方向
                         </div>
@@ -715,7 +680,7 @@
                     </div>
                 </div>
 
-                <button onclick="filterLibraryByStroke('${activeStroke}')" class="w-full bg-retroRust hover:bg-red-800 text-retroCard font-mono font-bold text-xs py-2.5 border-2 border-retroDark shadow-retro active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2 mt-2">
+                <button onclick="filterLibraryByStroke('${activeStroke}')" class="w-full bg-retroRust hover:bg-red-800 text-retroCard font-mono font-bold text-xs md:text-sm py-2.5 border-2 border-retroDark shadow-retro active:translate-x-0.5 active:translate-y-0.5 transition flex items-center justify-center gap-2 mt-2">
                     <i class="fa-solid fa-magnifying-glass"></i> 查看專屬陸上動作庫
                 </button>
             `;
@@ -765,9 +730,10 @@
 
         function renderFilteredExercises(list) {
             const container = document.getElementById('exercise-cards-container');
+            if (!container) return;
             if (list.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-10 text-retroDark/50 font-mono text-xs border-2 border-dashed border-retroDark p-6 bg-retroCard">
+                    <div class="text-center py-10 text-retroDark/50 font-mono text-xs border-2 border-dashed border-retroDark p-6 bg-retroCard col-span-full">
                         <i class="fa-solid fa-folder-open text-3xl mb-2 text-retroRust"></i>
                         <p>未找到符合條件的訓練動作</p>
                     </div>
@@ -925,14 +891,17 @@
 
         function updateHeaderBadge() {
             const count = todayRoutine.length;
-            document.getElementById('header-workout-count').innerText = `今日 ${count} 項目`;
+            const headerCount = document.getElementById('header-workout-count');
+            if (headerCount) headerCount.innerText = `今日 ${count} 項目`;
             
             const badge = document.getElementById('tab-badge');
-            if (count > 0) {
-                badge.innerText = count;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
+            if (badge) {
+                if (count > 0) {
+                    badge.innerText = count;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
             }
         }
 
@@ -958,6 +927,7 @@
 
         function renderTodayRoutine() {
             const container = document.getElementById('today-routine-list');
+            if (!container) return;
             
             if (todayRoutine.length === 0) {
                 container.innerHTML = `
@@ -992,9 +962,7 @@
                             <span class="stamp-badge bg-retroSand text-retroDark text-[9px] cursor-pointer" onclick="openModal('${item.id}')">${details.strokeTag}</span>
                             <h4 class="text-xs font-serif font-bold text-retroDark ${item.completed ? 'line-through text-retroDark/50' : ''} mt-0.5 cursor-pointer truncate" onclick="openModal('${item.id}')">${details.name}</h4>
                             
-                            <!-- Steppers for Sets and Reps -->
                             <div class="flex items-center gap-2 mt-2 text-xs font-mono font-bold flex-wrap">
-                                <!-- Sets Stepper -->
                                 <div class="flex items-center border border-retroDark bg-retroBg">
                                     <button onclick="changeSets(${idx}, -1)" class="w-5 h-5 bg-retroSand text-retroDark hover:bg-retroRust hover:text-white flex items-center justify-center font-bold transition text-xs select-none">-</button>
                                     <span class="px-2 text-[11px] text-retroDark">${item.sets}組</span>
@@ -1003,7 +971,6 @@
 
                                 <span class="text-retroRust">×</span>
 
-                                <!-- Reps Stepper -->
                                 <div class="flex items-center border border-retroDark bg-retroBg">
                                     <button onclick="changeReps(${idx}, -1)" class="w-5 h-5 bg-retroSand text-retroDark hover:bg-retroRust hover:text-white flex items-center justify-center font-bold transition text-xs select-none">-</button>
                                     <span class="px-2 text-[11px] text-retroDark">${item.reps}${item.unit}</span>
@@ -1024,11 +991,12 @@
 
         function updateProgressBar(completed, total) {
             const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
-            document.getElementById('progress-bar').style.width = `${percentage}%`;
-            document.getElementById('progress-text').innerText = `${completed} / ${total} (${percentage}%)`;
+            const bar = document.getElementById('progress-bar');
+            const txt = document.getElementById('progress-text');
+            if (bar) bar.style.width = `${percentage}%`;
+            if (txt) txt.innerText = `${completed} / ${total} (${percentage}%)`;
         }
 
-        // --- HISTORY RECORDING LOGIC ---
         function saveWorkoutToHistory() {
             if (todayRoutine.length === 0) {
                 showToast("今日尚無課表項目，無法歸檔");
@@ -1085,7 +1053,7 @@
 
             if (workoutHistory.length === 0) {
                 container.innerHTML = `
-                    <div class="bg-retroCard p-8 text-center text-retroDark/60 space-y-2 border-2 border-dashed border-retroDark">
+                    <div class="bg-retroCard p-8 text-center text-retroDark/60 space-y-2 border-2 border-dashed border-retroDark col-span-full">
                         <i class="fa-solid fa-box-archive text-3xl text-retroRust"></i>
                         <p class="text-xs font-mono font-bold text-retroDark">尚無完成訓練紀錄</p>
                         <p class="text-[11px] font-sans">在「今日課表」完成訓練後，點擊「歸檔訓練」將自動存入歷史紀錄。</p>
@@ -1118,10 +1086,10 @@
             if (isTimerRunning) {
                 clearInterval(timerInterval);
                 isTimerRunning = false;
-                btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-play"></i>';
             } else {
                 isTimerRunning = true;
-                btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
                 timerInterval = setInterval(() => {
                     timerSeconds++;
                     updateTimerDisplay();
@@ -1134,23 +1102,35 @@
             isTimerRunning = false;
             timerSeconds = 0;
             updateTimerDisplay();
-            document.getElementById('timer-toggle-btn').innerHTML = '<i class="fa-solid fa-play"></i>';
+            const btn = document.getElementById('timer-toggle-btn');
+            if (btn) btn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
 
         function updateTimerDisplay() {
             const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
             const secs = (timerSeconds % 60).toString().padStart(2, '0');
-            document.getElementById('workout-timer-display').innerText = `${mins}:${secs}`;
+            const timerEl = document.getElementById('workout-timer-display');
+            if (timerEl) timerEl.innerText = `${mins}:${secs}`;
         }
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
-            document.getElementById('toast-message').innerText = msg;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'pointer-events-none');
-            }, 2200);
+            const toastMsg = document.getElementById('toast-message');
+            if (toastMsg) toastMsg.innerText = msg;
+            if (toast) {
+                toast.classList.remove('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 2200);
+            }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            selectStroke('freestyle');
+            renderTodayRoutine();
+            updateHeaderBadge();
+            renderHistory();
+        });
     </script>
 </body>
 </html>
